@@ -4,7 +4,7 @@
       <v-col cols="12">
         <h1>Carrinho de Compras</h1>
       </v-col>
-      <v-col v-for="produto in produtos" :key="produto.nome" cols="12">
+      <v-col v-for="produto in store.produtosCarrinho" :key="produto.nome" cols="12">
         <v-card>
           <v-card-title>
             {{ produto.nome }}
@@ -38,17 +38,20 @@
 
 <script setup>
 import { computed } from 'vue'
+import { produtosAppStore } from '@/store/app'
 
-const props = defineProps({
-  produtos: Array,
-})
+const store = produtosAppStore()
+
+// const props = defineProps({
+//   produtos: Array,
+// })
 
 const precoProdutos = computed(() => {
-  return props.produtos.reduce((total, produtoAtual) => total + produtoAtual.preco, 0)
+  return store.produtosCarrinho.reduce((total, produtoAtual) => total + produtoAtual.preco, 0)
 })
 
 const precoFrete = computed(() => {
-  return props.produtos.reduce((total, produtoAtual) => total + produtoAtual.frete, 0)
+  return store.produtosCarrinho.reduce((total, produtoAtual) => total + produtoAtual.frete, 0)
 })
 
 const precoTotal = computed(() => precoProdutos.value + precoFrete.value)

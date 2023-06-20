@@ -1,15 +1,21 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col cols="8">
+      <v-btn to="/carrinho">Carrinho de compras</v-btn>
+    </v-row>
+    <v-row>
+      <v-col cols="3">
+        <CadastroProduto/> 
+      </v-col>
+      <v-col cols="6">
         <div class="lista-produtos">
-          <div v-if="produtos.length === 0">
+          <div v-if="store.produtos.length === 0">
             Carregando ...
           </div>
         
           <AppProduto
             v-else
-            v-for="produto in produtos" 
+            v-for="produto in store.produtos" 
             :key="produto.nome" 
             :nome="produto.nome"
             :preco="produto.preco"
@@ -18,9 +24,9 @@
             @add-carrinho="onAddCarrinho" />
         </div>
       </v-col>
-      <v-col cols="4">
+      <v-col cols="3">
         
-        <CarrinhoCompras :produtos="produtosCarrinho">
+        <CarrinhoCompras>
         </CarrinhoCompras>
       </v-col>
     </v-row>
@@ -30,13 +36,14 @@
 <script setup>
 import AppProduto from '@/components/AppProduto.vue'
 import CarrinhoCompras from '@/components/CarrinhoCompras.vue'
-import { ref } from 'vue'
+import  CadastroProduto from '@/components/CadastroProduto.vue'
+// import { ref } from 'vue'
+import { produtosAppStore } from '@/store/app'
 
-const produtos = ref([])
-const produtosCarrinho = ref([])
+const store = produtosAppStore()
 
 setTimeout(function () {
-  produtos.value.push({
+  store.produtos.push({
   nome: "Produto Teste 1",
   preco: 100.0,
   marca: "Marca 1",
@@ -55,8 +62,9 @@ setTimeout(function () {
 }, 5000)
 
 function onAddCarrinho(produto) {
-  produtosCarrinho.value.push(produto)
+  store.produtosCarrinho.push(produto)
 }
+
 </script>
 <style lang="css">
 

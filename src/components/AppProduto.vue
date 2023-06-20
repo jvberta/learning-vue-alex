@@ -2,7 +2,7 @@
   <div class="produto">
     <div class="nome">
       <div>{{ nome }}</div>
-      <img class="imagem" src="https://guiademarketing.com.br/wp-content/uploads/2017/04/produtos.jpg"/>
+      <!-- <img class="imagem" src="https://guiademarketing.com.br/wp-content/uploads/2017/04/produtos.jpg"/> -->
     </div>
     <div class="detalhes">
         <div>Preco: {{ precoFormatado }}</div>
